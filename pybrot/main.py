@@ -23,15 +23,18 @@ def add_z_c(z,c):
 
 def main():
     z = []
-    for p in zip(range(1,20),range(1,20)):
+    N = 20
+    itMax = 200
+    
+    for p in zip(range(1,N),range(1,N)):
         p = pixel([0,0],' ')
         c = p.affix # I'm not properly understanding this part
         z = [0,0]
-        color = ' '
-        for n in range(0,N):
-            if mod_z2(z) > 4:
-                color = '*'
-                break
+        
+        
+        
+        for iter in range(0,itMax):
+            if 
         z = mult_z(z)
         z = add_z_c(z,c)
     p.color = color

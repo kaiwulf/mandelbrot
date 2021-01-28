@@ -17,13 +17,14 @@ def mult_z(z):
 
     z[0] = x**2 - y**2
     z[1] = 2*x*y
+    return z
 
 # Add z and c together
 def add_z_c(z,c):
-    z_add = [0,0]
-    z_add[0] = z[0] + c[0]
-    z_add[1] = z[1] + c[1]
-    return z_add
+    z[0] = z[0] + c[0]
+    z[1] = z[1] + c[1]
+
+    return z
 
 def main():
     z = [0,0]              # Create a list z
@@ -40,17 +41,17 @@ def main():
     PixelHeight = (CyMax - CyMin)/N
     PixelWidth = (CxMax - CxMin)/N
 
-    for p in zip(range(1,N),range(1,N)):    # Iteration through the square (1,N)x(1,N) - Cartesian product
+                                            # Iteration through the square (1,N)x(1,N) - Cartesian product
+    for p in zip(range(1,N),range(1,N)):
         c[0] = CyMin + p[1]*PixelHeight
         c[1] = CxMin + p[0]*PixelWidth
         if abs(c[1] < PixelHeight/2):
             c[1] = 0
         
         z = [0,0]                           # For each unit...
-        for iter in range(0,itMax):         # Calculate that max iterations
-            if mod_z2(z) < 4:
-                print("c is ", c)
-                print("z is ", z)
+                                            # Calculate that max iterations...
+        for iter in range(0,itMax):
+            if mod_z2(z) < 4.0:
                 z = mult_z(z)
                 z = add_z_c(z,c)
                 break

@@ -37,29 +37,32 @@ def main():
 
     CyMin = -2.0
     CyMax = 2.0
+    
+    it = 0
 
     PixelHeight = (CyMax - CyMin)/N
     PixelWidth = (CxMax - CxMin)/N
 
                                             # Iteration through the square (1,N)x(1,N) - Cartesian product
-    for p in zip(range(1,N),range(1,N)):
-        c[0] = CyMin + p[1]*PixelHeight
-        c[1] = CxMin + p[0]*PixelWidth
+    for p in range(1,N):
+        c[0] = CyMin + p*PixelHeight
         if abs(c[1] < PixelHeight/2):
             c[1] = 0
         
         z = [0,0]                           # For each unit...
+        for q in range(1,N):
+            c[1] = CxMin + q*PixelWidth
                                             # Calculate that max iterations...
-        for iter in range(0,itMax):
-            if mod_z2(z) < 4.0:
-                z = mult_z(z)
-                z = add_z_c(z,c)
-                break
-        
-        if iter == itMax:
-            print(" ")
-        else: 
-            print("*")
+            for it in range(0,itMax):
+                if mod_z2(z) < 4.0:
+                    z = mult_z(z)
+                    z = add_z_c(z,c)
+                    break
+
+            if it == itMax:
+                print(" ", end="")
+            else: 
+                print("*", end="")
 
 
 if __name__ == "__main__":

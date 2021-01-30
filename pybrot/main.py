@@ -29,7 +29,7 @@ def add_z_c(z,c):
 def main():
     z = [0,0]              # Create a list z
     c = [0,0]              # Create a list c
-    N = 20              # Set the size of units (rather than pixels) to N
+    dims = 100              # Set the pixel dimensions (dims x dims)
     itMax = 200         # Max iterations of mendelbrot set
 
     CxMin = -2.5
@@ -40,18 +40,20 @@ def main():
     
     it = 0
 
-    PixelHeight = (CyMax - CyMin)/N
-    PixelWidth = (CxMax - CxMin)/N
+    PixelHeight = (CyMax - CyMin)/dims
+    PixelWidth = (CxMax - CxMin)/dims
 
-                                            # Iteration through the square (1,N)x(1,N) - Cartesian product
-    for p in range(1,N):
-        c[0] = CyMin + p*PixelHeight
-        if abs(c[1] < PixelHeight/2):
-            c[1] = 0
+    mendlppm = open("mendel.ppm")
+
+                                            # Iteration through the square (1,dims)x(1,dims) - Cartesian product
+    for p in range(1,dims):
+        c[0] = p
+        # if abs(c[1] < PixelHeight/2):
+        #     c[1] = 0
         
         z = [0,0]                           # For each unit...
-        for q in range(1,N):
-            c[1] = CxMin + q*PixelWidth
+        for q in range(1,dims):
+            c[1] = q
                                             # Calculate that max iterations...
             for it in range(0,itMax):
                 if mod_z2(z) < 4.0:
@@ -63,6 +65,7 @@ def main():
                 print(" ", end="")
             else: 
                 print("*", end="")
+        print("\n")
 
 
 if __name__ == "__main__":

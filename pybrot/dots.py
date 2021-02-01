@@ -1,24 +1,23 @@
-dots = open("dots.ppm", "w")
+import array
 width = 800
 height = 800
 maxval = 255
-ppm_header = 'P3 {width} {height} {maxval}\n'
-i,j,k = 0,0,0
-color = [0,0,0]
-color[0],color[1],color[2]=i,j,k
-for p in range(1,800):
-    i+=1
-    for q in range(1,800):
-        color[0],color[1],color[2] = i,j,k
-        j+=1
-        if q%2:
-            k+=1
-        dots.write("{} ".format(color[0]))
-        dots.write("{} ".format(color[1]))
-        dots.write("{} ".format(color[2]))
-        if i == 255 or j == 255 or k == 255:
-            i=0
-            j=0
-            k=0
-            break
-    dots.write("\n")
+
+r = 255
+g = 255
+b = 255
+
+ppm_header = f'P6 {width} {height} {maxval}\n'
+
+image = array.array('B', [r, g, b] * width * height)
+
+for y in range(10,90):
+    for x in range(10,60):
+        index = 3*(y*width + x)
+        image[index] = 255
+        image[index+1] = 0
+        image[index+2] = 0
+
+with open('dots.ppm', 'wb') as dots:
+    dots.write(bytearray(ppm_header, 'ascii'))
+    image.tofile(dots)

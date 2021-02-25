@@ -1,7 +1,19 @@
+import std.stdio, std.complex;
+
+void mandelbrot(real c_re, real c_im) {
+    auto z = complex(0, 0);
+    immutable c = complex(c_re, c_im);
+    immutable MAX_ITER = 1000;
+    foreach(_; 0 .. MAX_ITER ) {
+        z = z^^2 + c;
+    }
+    write(abs(z) < 2 ? '#' : '.');
+}
+
 void main() {
     // Image size (pixels)
-    immutable WIDTH = 600;
-    immutable HEIGHT = 400;
+    immutable WIDTH = 1.0;
+    immutable HEIGHT = 1.0;
 
     // Plot window
     immutable RE_START = -2;
@@ -9,13 +21,11 @@ void main() {
     immutable IM_START = -1;
     immutable IM_END = 1;
 
-    for(real x = 0.0; x < WIDTH; x += 0.1) {
-        for(real y = 0.0; x < HEIGHT; y += 0.1) {
-            auto c = complex(RE_START + (x / WIDTH) * (RE_END - RE_START),
-                        IM_START + (y / HEIGHT) * (IM_END - IM_START));
-            auto m = mandelbrot(c.re, c.im);
+    for(real y = -1.2; y < HEIGHT; y += 0.05) {
+        for(real x = -2.5; x < WIDTH; x += 0.03) {
+            mandelbrot(x, y);
             
         }
-        writeln
+        writeln;
     }
 }
